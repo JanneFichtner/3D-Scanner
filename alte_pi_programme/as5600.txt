@@ -1,0 +1,9 @@
+verkabelung as5600:
+
+vcc grau    Pin 1
+out weiß    Pin /
+gnd schwarz Pin 6
+dir gelb    Pin 39
+scl grün    Pin 5
+sda blau    Pin 3    
+gpo lila    Pin /
