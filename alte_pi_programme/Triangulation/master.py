@@ -3,12 +3,12 @@ import triangulation_transformation
 import numpy as np
 import os, shutil
 
-scan_folder = r"/home/janne/Desktop/Masterprojekt/Scan/bracket"
-data = np.load(r"/home/janne/Desktop/Masterprojekt/Kalibrierung/calibration_data_03.npz")
+scan_folder = r"G:\Meine Ablage\Studium\Master\3. Semester\Masterprojekt\Python Skripte\3D-Scanner\alte_pi_programme\Scan\scan_maus_03"
+data = np.load(r"G:\Meine Ablage\Studium\Master\3. Semester\Masterprojekt\Python Skripte\3D-Scanner\alte_pi_programme\Kalibrierung\calibration_data_03.npz")
 
 
 #hier leere ich den last masks ordner
-out_dir = "/home/janne/Desktop/Masterprojekt/Scan/last_scan_masks"
+out_dir = r"G:\Meine Ablage\Studium\Master\3. Semester\Masterprojekt\Python Skripte\3D-Scanner\alte_pi_programme\Scan\last_scan_masks"
 shutil.rmtree(out_dir, ignore_errors=True)
 os.makedirs(out_dir, exist_ok=True)
 
@@ -23,7 +23,7 @@ print("mtx:\n", mtx)
 print("normal_L:", normal_L)
 
 #laden der drehteller daten
-data_drehteller = np.load("/home/janne/Desktop/Masterprojekt/Kalibrierung/calibration_drehteller_mitkleineboard.npz")
+data_drehteller = np.load(r"G:\Meine Ablage\Studium\Master\3. Semester\Masterprojekt\Python Skripte\3D-Scanner\alte_pi_programme\Kalibrierung\calibration_drehteller_mitkleineboard.npz")
 
 center3d = data_drehteller["center3d"]
 normal_drehteller = data_drehteller["normal_drehteller"]

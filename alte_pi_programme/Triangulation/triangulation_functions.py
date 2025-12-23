@@ -258,7 +258,7 @@ import numpy as np
 
 def save_mask_overlay(clean, img_path):
     # Zielordner
-    out_dir = "/home/janne/Desktop/Masterprojekt/Scan/last_scan_masks"
+    out_dir = r"G:\Meine Ablage\Studium\Master\3. Semester\Masterprojekt\Python Skripte\3D-Scanner\alte_pi_programme\Scan\last_scan_masks"
     os.makedirs(out_dir, exist_ok=True)
 
     # Originalbild laden
