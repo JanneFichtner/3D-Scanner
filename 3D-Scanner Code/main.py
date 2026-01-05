@@ -1,15 +1,18 @@
 import time
 from hardware.cameras import Cameras
 from hardware.encoder import Encoder
+from hardware.stepper import Stepper
 import threading
 def main():
-
+                                                                                                                                                                                                                                                                                                                                                                                                                          
     #Kameras initialisieren
     cameras = Cameras()
     cameras.get_parameters()
 
     #Encoder initialisieren
     encoder = Encoder()
+    stepper = Stepper()
+    stepper.send_data(2, 200 * 16 * 5 * 4)
     while True:
         angle = encoder.get_angle()
         
@@ -21,5 +24,5 @@ def main():
     #I2C verbindung zum Nano initialisieren
 if __name__ == "__main__":
     main()
-
+ 
 
