@@ -1,38 +1,37 @@
 import time
+import threading
 from hardware.cameras import Cameras
 from hardware.encoder import Encoder
-from hardware.stepper import Stepper
-import threading
+from hardware.Nano import Nano
+from logik.kalibrierung import Kalibrierung
+
 def main():
-                                                                                                                                                                                                                                                                                                                                                                                                                          
-    #Kameras initialisieren
+ 
+    # Hardware initialisieren   
     cameras = Cameras()
     cameras.get_parameters()
-
-    #Encoder initialisieren
     encoder = Encoder()
-    stepper = Stepper()
-    #stepper.send_data(2, 200 * 16 * 5 * 4)
-    for i in range(3):
-        stepper.send_data(3, 200 * 16 * 5 * 4)
-        stepper.send_data(5, 200 * 16 * 5 * 4)
-        print("laser an")
-        time.sleep(2)
-        stepper.send_data(4, 1000)
-        stepper.send_data(6, 1000)
-        print("laser aus")
-        time.sleep(2)
-    
-    while True:
-        angle = encoder.get_angle()
-        
-        # \r sorgt dafür, dass die Zeile im Terminal überschrieben wird
-        print(f" {angle:7.2f}° ", end="\r")
-        
-        time.sleep(0.05) # 20 Hz Update-Rate
-        
-    #I2C verbindung zum Nano initialisieren
+    nano = Nano()
+
+    #lokig initialisieren
+    kalibrierung = Kalibrierung(nano, cameras, encoder)
+    #triangulation = Triangulation(nano, cameras, encoder)
+    #nano.move_to_angle(encoder.get_angle(), 180)
+    kalibrierung.get_calibration_data()
+    print("Hauptprogramm: Lese Winkel aus. Drücke Strg+C zum Beenden.")
+
+    try:
+        while True:
+            # Während die Laser-Routine im Hintergrund läuft,
+            # aktualisiert dieser Loop permanent den Winkel im Terminal.
+            angle = encoder.get_angle()
+            print(f" Aktueller Winkel: {angle:7.2f}° ", end="\r")
+            time.sleep(0.05)
+    except KeyboardInterrupt:
+        print("\nAbbruch durch Benutzer...")
+        # Optional: Laser beim Abbruch sicher ausschalten
+        nano.send_data(4, 0)
+        nano.send_data(6, 0)
+
 if __name__ == "__main__":
     main()
- 
-
